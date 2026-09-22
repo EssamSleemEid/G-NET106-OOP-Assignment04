@@ -28,8 +28,11 @@
 
             //when different unrelated classes need to follow the same behavior
 
+            //c)  Can a class inherit from multiple abstract classes? Can it implement multiple interfaces?
 
+            //for the abstract no it can not and for the interface it can implement from multiple interfaces
             #endregion
+
             #endregion
         }
     }
