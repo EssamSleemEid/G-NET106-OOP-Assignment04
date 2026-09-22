@@ -23,6 +23,12 @@
 
              interface: define a contract that class must implement
             */
+
+            //b)  When would you choose an Interface instead of an Abstract Class?
+
+            //when different unrelated classes need to follow the same behavior
+
+
             #endregion
             #endregion
         }
