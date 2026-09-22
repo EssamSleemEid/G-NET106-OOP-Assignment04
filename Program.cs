@@ -411,7 +411,7 @@
             {
                 for (int i = 0; i < shipments.Length; i++)
                 {
-                    if (shipments[i].TrackingCode == null)
+                    if (shipments[i] == null)
                     {
                         shipments[i] = shipment;
                         return true;
@@ -493,6 +493,61 @@
             #endregion
 
             #region Part02
+
+            Driver driver01 = new Driver("essam");
+
+            DeliveryCenter center01 = new DeliveryCenter("sinai delevery center");
+
+            center01.Driver = driver01;
+
+
+            DeliveryAddress address01 = new DeliveryAddress("north sinai", "el masaeed", 1);
+
+            DeliveryAddress address02 = new DeliveryAddress("north sinai", "el dahia", 2);
+
+            DeliveryAddress address03 = new DeliveryAddress("north sinai", "el reisa", 3);
+
+            StandardShipment standardShipment01 = new StandardShipment("samsung A34 phone ", 1.2m, 55, "A034", address01);
+
+            center01.AddShipment(standardShipment01);
+
+            ExpressShipment expressShipment01 = new ExpressShipment("laptop dell presession5570 ", 5, 120, "L507", address02, 20);
+
+            center01.AddShipment(expressShipment01);
+
+            InternationalShipment internationalShipment01 = new InternationalShipment("huawei smart watch Gt2", 0.4m, 200, "HG02", address03, "Egypt", 50);
+
+            center01.AddShipment(internationalShipment01);
+
+            center01.PrintAllShipments();
+
+            center01.PrintTrackingStatuses();
+
+            DeliveryReport.PrintInsurance(standardShipment01);
+            DeliveryReport.PrintInsurance(expressShipment01);
+            DeliveryReport.PrintInsurance(internationalShipment01);
+
+            ITrackable[] trackableShipments =
+            {
+                standardShipment01,
+                expressShipment01,
+                internationalShipment01
+            };
+            foreach (ITrackable shipment in trackableShipments)
+            {
+                DeliveryReport.PrintShipment(shipment);
+            }
+
+            IInsurable[] insurableShipments =
+            {
+                standardShipment01,
+                expressShipment01,
+                internationalShipment01
+            };
+            foreach (IInsurable shipment in insurableShipments)
+            {
+                DeliveryReport.PrintInsurance(shipment);
+            }
 
             #endregion
         }
