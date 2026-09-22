@@ -14,6 +14,16 @@
 
             //bc it helps  hide the implementation details and reduce complexity
             #endregion
+
+            #region Question02
+            //a)  What is the difference between an Abstract Class and an Interface?
+
+            /*
+             abstract: class can contain fields and properties and methods
+
+             interface: define a contract that class must implement
+            */
+            #endregion
             #endregion
         }
     }
