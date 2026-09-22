@@ -22,8 +22,12 @@
         {
             string GetTrackingStatus();
         }
+        public interface IInsurable
+        {
+            decimal CalculateInsurance();
+        }
 
-        public abstract class Shipment : ITrackable
+        public abstract class Shipment : ITrackable, IInsurable
         {
             private string description;
             private decimal weight;
@@ -80,6 +84,7 @@
 
             public abstract string GetTrackingStatus();
 
+            public abstract decimal CalculateInsurance();
 
             public Shipment(string trackingCode)
             {
@@ -150,6 +155,11 @@
             {
                 return $"Shipment {TrackingCode} has been Delivered.";
             }
+
+            public override decimal CalculateInsurance()
+            {
+                return EstimatedCost * 0.05m;
+            }
         }
 
         public class ExpressShipment : Shipment
@@ -193,6 +203,11 @@
             public override string GetTrackingStatus()
             {
                 return $"Shipment {TrackingCode} is Out for Delivery.";
+            }
+
+            public override decimal CalculateInsurance()
+            {
+                return EstimatedCost * 0.08m;
             }
         }
 
@@ -259,6 +274,11 @@
             public override string GetTrackingStatus()
             {
                 return $"Shipment {TrackingCode} is Ready.";
+            }
+
+            public override decimal CalculateInsurance()
+            {
+                return EstimatedCost * 0.12m;
             }
         }
         static void Main(string[] args)
