@@ -18,8 +18,12 @@
                 return $"bulding number : {BuldingNumber}, street : {Street}, city : {City}";
             }
         }
+        public interface ITrackable
+        {
+            string GetTrackingStatus();
+        }
 
-        public abstract class Shipment
+        public abstract class Shipment : ITrackable
         {
             private string description;
             private decimal weight;
@@ -73,6 +77,9 @@
             }
             
             public abstract void PrintShipment();
+
+            public abstract string GetTrackingStatus();
+
 
             public Shipment(string trackingCode)
             {
@@ -138,6 +145,11 @@
                 Console.WriteLine("Destination : " + Destination.GetFullAddress());
                 Console.WriteLine("Estimated Cost : " + EstimatedCost + " EGP");
             }
+
+            public override string GetTrackingStatus()
+            {
+                return $"Shipment {TrackingCode} has been Delivered.";
+            }
         }
 
         public class ExpressShipment : Shipment
@@ -176,6 +188,11 @@
                 Console.WriteLine("Extra Fee : " + ExtraFee + " EGP");
                 Console.WriteLine("Destination : " + Destination.GetFullAddress());
                 Console.WriteLine("Estimated Cost : " + EstimatedCost + " EGP");
+            }
+
+            public override string GetTrackingStatus()
+            {
+                return $"Shipment {TrackingCode} is Out for Delivery.";
             }
         }
 
@@ -237,6 +254,11 @@
                 Console.WriteLine("Destination Country : " + DestinationCountry);
                 Console.WriteLine("Customs Fee : " + CustomerFee + " EGP");
                 Console.WriteLine("Estimated Cost : " + EstimatedCost + " EGP");
+            }
+
+            public override string GetTrackingStatus()
+            {
+                return $"Shipment {TrackingCode} is Ready.";
             }
         }
         static void Main(string[] args)
