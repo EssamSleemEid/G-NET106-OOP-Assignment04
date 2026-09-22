@@ -281,6 +281,90 @@
                 return EstimatedCost * 0.12m;
             }
         }
+
+        public class PriorityInternationalShipment : InternationalShipment
+        {
+            public PriorityInternationalShipment(string description, decimal weight, decimal deliveryFee, string trackingCode, DeliveryAddress Destination, string DestinationCountry, decimal CustomerFee) : base(description, weight, deliveryFee, trackingCode, Destination, DestinationCountry, CustomerFee)
+            {
+
+            }
+            public override void GenerateCustomsReport()
+            {
+                Console.WriteLine("Customs Report Generated.");
+            }
+
+        }
+
+        public sealed class CompletedShipment : Shipment
+        {
+            public CompletedShipment(string description, decimal weight, decimal deliveryFee, string trackingCode, DeliveryAddress Destination) : base(trackingCode, description, weight, deliveryFee, Destination)
+            {
+
+            }
+
+            public override decimal EstimatedCost
+            {
+                get
+                {
+                    return DeliveryFee + (Weight * 5);
+                }
+            }
+
+            public override void PrintShipment()
+            {
+                Console.WriteLine("Completed Shipment");
+                Console.WriteLine("Tracking Code : " + TrackingCode);
+                Console.WriteLine("Description : " + Description);
+                Console.WriteLine("Weight : " + Weight + " kg");
+                Console.WriteLine("Delivery Fee : " + DeliveryFee + " EGP");
+                Console.WriteLine("Destination : " + Destination.GetFullAddress());
+                Console.WriteLine("Estimated Cost : " + EstimatedCost + " EGP");
+            }
+
+            public override string GetTrackingStatus()
+            {
+                return $"Shipment {TrackingCode} has been Delivered.";
+            }
+
+            public override decimal CalculateInsurance()
+            {
+                return EstimatedCost * 0.05m;
+            }
+        }
+
+        public class Driver
+        {
+            public string Name { get; set; }
+
+            public Driver(string name)
+            {
+
+                Name = name;
+            }
+        }
+
+        public static class DeliveryHelper
+        {
+            public static void PrintShipmentDetails(Shipment shipment)
+            {
+                shipment.PrintShipment();
+            }
+        }
+
+        public static class DeliveryReport
+        {
+            public static void PrintShipment(ITrackable shipment)
+            {
+                Console.WriteLine(shipment.GetTrackingStatus());
+            }
+
+            public static void PrintInsurance(IInsurable shipment)
+            {
+                Console.WriteLine("insuranceCost : " +shipment.CalculateInsurance() + " EGP");
+            }
+        }
+
+
         static void Main(string[] args)
         {
             #region Part01
